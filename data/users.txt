@@ -1,0 +1,2 @@
+alice|123|admin
+bob|123|user
