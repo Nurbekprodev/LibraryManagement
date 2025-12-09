@@ -10,7 +10,7 @@ Magazine::Magazine(int id, string title, int issue, int count)  // magazine cons
     }
 }
 
-// show magazine info
+// show magazine info for the catalog
 void Magazine::display() const {
     cout << "[Magazine] ID: " << id
          << " | Title: " << title
