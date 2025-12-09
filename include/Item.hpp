@@ -9,16 +9,16 @@ class Item {
 protected:
     int id;
     string title;
-    bool isBorrowed;
+    int availableCount; // Number of available items
 
 public:
-    Item(int id, string title) : id(id), title(title), isBorrowed(false) {}
+    Item(int id, string title, int count);
     virtual ~Item() {}
 
     int getId() const { return id; }
     string getTitle() const { return title; }
-    bool getBorrowedStatus() const { return isBorrowed; }
-    void setBorrowedStatus(bool s) { isBorrowed = s; }
+    int getAvailableCount() const { return availableCount; }
+    void setAvailableCount(int count) { availableCount = count; }
 
     virtual string serialize() const = 0;
     virtual void display() const = 0;

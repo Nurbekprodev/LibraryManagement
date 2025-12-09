@@ -8,7 +8,7 @@ class Magazine : public Item {
     int issueNumber;
 
 public:
-    Magazine(int id, string title, int issue);
+    Magazine(int id, string title, int issue, int count);
     void display() const override;
     string serialize() const override;
 };

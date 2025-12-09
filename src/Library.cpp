@@ -1,5 +1,6 @@
 #include <fstream>
 #include <sstream>
+#include <stdexcept> // For runtime_error
 #include "Library.hpp"
 #include "Book.hpp"
 #include "Magazine.hpp"
@@ -14,12 +15,16 @@ void Library::displayCatalog() const {
 }
 
 void Library::borrowItem(int id, const string &member) {
+    if (member.empty()) {
+        throw runtime_error("Member name cannot be empty.");
+    }
+
     for (auto &i : catalog) {
         if (i->getId() == id) {
-            if (i->getBorrowedStatus())
-                throw runtime_error("Item already borrowed.");
+            if (i->getAvailableCount() <= 0)
+                throw runtime_error("Item not available for borrowing.");
 
-            i->setBorrowedStatus(true);
+            i->setAvailableCount(i->getAvailableCount() - 1);
             records.emplace_back(id, member);
             cout << "Borrow successful.\n";
             return;
@@ -31,7 +36,7 @@ void Library::borrowItem(int id, const string &member) {
 void Library::returnItem(int id) {
     for (auto &i : catalog) {
         if (i->getId() == id) {
-            i->setBorrowedStatus(false);
+            i->setAvailableCount(i->getAvailableCount() + 1);
             cout << "Item returned.\n";
             return;
         }
@@ -55,23 +60,21 @@ void Library::load() {
 
     while (getline(cat, line)) {
         stringstream ss(line);
-        string type, title, extra, borrowed;
+        string type, title, extra, available;
         int id;
 
         getline(ss, type, ',');
         ss >> id; ss.ignore();
         getline(ss, title, ',');
         getline(ss, extra, ',');
-        getline(ss, borrowed, ',');
+        getline(ss, available, ',');
 
         if (type == "BOOK") {
-            auto b = make_shared<Book>(id, title, extra);
-            b->setBorrowedStatus(borrowed == "1");
+            auto b = make_shared<Book>(id, title, extra, stoi(available));
             catalog.push_back(b);
         }
         else if (type == "MAGAZINE") {
-            auto m = make_shared<Magazine>(id, title, stoi(extra));
-            m->setBorrowedStatus(borrowed == "1");
+            auto m = make_shared<Magazine>(id, title, stoi(extra), stoi(available));
             catalog.push_back(m);
         }
     }
@@ -84,7 +87,6 @@ void Library::load() {
 
         ss >> id; ss.ignore();
         getline(ss, member);
-
         records.emplace_back(id, member);
     }
 }

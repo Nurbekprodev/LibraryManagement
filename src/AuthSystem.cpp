@@ -25,6 +25,10 @@ void AuthSystem::saveUsers() {
 }
 
 bool AuthSystem::signup(const string &username, const string &password, const string &role) {
+    if (username.empty() || password.empty() || (role != "admin" && role != "user")) {
+        throw AuthException("Invalid input. Ensure username, password, and role are valid.");
+    }
+
     for (auto &u : users) {
         if (u.username == username)
             throw AuthException("Username already exists!");
@@ -36,6 +40,10 @@ bool AuthSystem::signup(const string &username, const string &password, const st
 }
 
 User AuthSystem::login(const string &username, const string &password) {
+    if (username.empty() || password.empty()) {
+        throw AuthException("Invalid input. Username and password cannot be empty.");
+    }
+
     for (auto &u : users) {
         if (u.username == username && u.password == password)
             return u;

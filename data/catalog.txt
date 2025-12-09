@@ -1,4 +1,4 @@
-BOOK,1,The Hobbit,J.R.R. Tolkien,0
-BOOK,2,1984,George Orwell,0
-MAGAZINE,3,National Geographic,5,0
-MAGAZINE,4,Time,10,0
+BOOK,1,The Great Gatsby,F. Scott Fitzgerald,7
+BOOK,2,1984,George Orwell,3
+MAGAZINE,3,National Geographic,202,10
+MAGAZINE,4,Time,101,6
