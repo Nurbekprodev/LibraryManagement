@@ -14,7 +14,7 @@ int main() {
     lib.load(); // load catalog and borrowed records
 
     while (true) {
-        cout << "\n=== Welcome to Library System ===\n";
+        cout << "\n=== Welcome to Library Management System ===\n";
         cout << "1. Signup\n";
         cout << "2. Login\n";
         cout << "3. Exit\n";
