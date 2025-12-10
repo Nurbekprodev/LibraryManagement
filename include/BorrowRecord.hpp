@@ -9,7 +9,7 @@ public:
     int itemId;
     string memberName;
 
-    BorrowRecord(int id, string member);
+    BorrowRecord(int id, string member); //constructor 
     string serialize() const;
 };
 
